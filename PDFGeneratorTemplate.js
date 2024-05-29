@@ -24,9 +24,17 @@ require.config({
         (config.port ? ':' + config.port : '') +
         config.prefix +
         'resources',
+    paths: {
+        appControllerModule: '../extensions/PDFGeneratorTemplate/AppController',
+    },
 });
 
 require(['js/qlik'], function (qlik) {
+    // Initialize AppController
+    require(['angular', 'appControllerModule'], function (angular) {
+        angular.bootstrap(document, ['appControllerModule', 'qlik-angular']);
+    });
+
     qlik.setOnError(function (error) {
         $('#popupText').append(error.message + '<br>');
         $('#popup').fadeIn(1000);
@@ -64,8 +72,8 @@ require(['js/qlik'], function (qlik) {
 
     // Objects will appear on mashup in order of this array
     var qlikObjects = [
-        { objectId: 'TVZWkLL', size: SIZE.SMALL, customSize: null },
-        { objectId: 'TVZWkLL', size: SIZE.SMALL, customSize: null },
+        // { objectId: 'TVZWkLL', size: SIZE.SMALL, customSize: null },
+        // { objectId: 'TVZWkLL', size: SIZE.SMALL, customSize: null },
     ];
 
     /***************************************************/
